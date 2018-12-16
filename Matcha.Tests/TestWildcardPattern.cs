@@ -35,5 +35,26 @@ namespace Matcha.Tests
 
             }
         }
+
+        [TestCase("hej med * min ven", "hej med dig min ven", true)]
+        [TestCase("hej med * min ven", "hej med JIGFJ#FGUF#)=F#=F)#=JF#=F#F=#=FJ)#=FJ)=# min ven", true)]
+        [TestCase("hej med * min ven", "hej med JIGFJ#FGUF#)=F#=F)#=JF#=F#F=#=FJ)#=FJ)=# min homie", false)]
+        public void CheckThis(string pattern, string input, bool expectedResult)
+        {
+            var wildcardPattern = new WildcardPattern(pattern);
+
+            var isMatch = wildcardPattern.IsMatch(input);
+
+            Console.WriteLine($@"
+
+Pattern: {pattern}
+  Input: {input}
+
+  Match: {isMatch}
+
+");
+
+            Assert.That(isMatch, Is.EqualTo(expectedResult));
+        }
     }
 }
