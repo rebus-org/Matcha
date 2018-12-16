@@ -39,6 +39,10 @@ namespace Matcha.Tests
         [TestCase("hej med * min ven", "hej med dig min ven", true)]
         [TestCase("hej med * min ven", "hej med JIGFJ#FGUF#)=F#=F)#=JF#=F#F=#=FJ)#=FJ)=# min ven", true)]
         [TestCase("hej med * min ven", "hej med JIGFJ#FGUF#)=F#=F)#=JF#=F#F=#=FJ)#=FJ)=# min homie", false)]
+        [TestCase("d?ng d?ng har du set min bong", "ding dong har du set min bong", true)]
+        [TestCase("d?ng d?ng har du set min bong", "ding ding har du set min bong", true)]
+        [TestCase("d?ng d?ng har du set min bong", "dong dong har du set min bong", true)]
+        [TestCase("d?ng d?ng har du set min bong", "ding dong har du set min øl", false)]
         public void CheckThis(string pattern, string input, bool expectedResult)
         {
             var wildcardPattern = new WildcardPattern(pattern);
