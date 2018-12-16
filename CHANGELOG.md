@@ -1,5 +1,5 @@
 # Changelog
 
-## 1.0.0-a1
+## 1.0.0-a2
 
 * Made it
