@@ -13,7 +13,7 @@ var fileNames = new[]
     "ghita-nørby.GIF"
 };
 
-var wildcardPattern = new WildcardPattern("*.gif");
+var wildcardPattern = new WildcardPattern("*.gif", WildcardOptions.IgnoreCase);
 
 var matches = fileNames.Where(wildcardPattern.IsMatch);
 
