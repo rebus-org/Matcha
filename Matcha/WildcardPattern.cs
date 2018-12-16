@@ -7,10 +7,10 @@ namespace Matcha
         readonly string _pattern;
         readonly Regex _regex;
 
-        public WildcardPattern(string pattern)
+        public WildcardPattern(string pattern, WildcardOptions options = WildcardOptions.None)
         {
             var regexPattern = WildcardToRegex(pattern);
-            _regex = new Regex(regexPattern);
+            _regex = new Regex(regexPattern, GetFlags(options));
             _pattern = pattern;
         }
 
@@ -19,15 +19,34 @@ namespace Matcha
             return _regex.IsMatch(text);
         }
 
+        public override string ToString() => $"{{{_pattern}}}";
+
         static string WildcardToRegex(string pattern)
         {
             var regex = Regex.Escape(pattern)
                 .Replace("\\*", ".*")
                 .Replace("\\?", ".");
-            
+
             return $"^{regex}$";
         }
 
-        public override string ToString() => $"{{{_pattern}}}";
+        static RegexOptions GetFlags(WildcardOptions options)
+        {
+            var regexOptions = RegexOptions.None;
+
+            bool HasFlag(WildcardOptions flag) => (options & flag) == flag;
+
+            if (HasFlag(WildcardOptions.IgnoreCase))
+            {
+                regexOptions |= RegexOptions.IgnoreCase;
+            }
+
+            if (HasFlag(WildcardOptions.CultureInvariant))
+            {
+                regexOptions |= RegexOptions.CultureInvariant;
+            }
+
+            return regexOptions;
+        }
     }
 }
