@@ -1,18 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<LangVersion>12</LangVersion>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <Authors>mookid8000</Authors>
-    <PackageLicenseUrl></PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/rebus-org/Matcha</PackageProjectUrl>
-    <Copyright>Copyright 2018-2029</Copyright>
-    <PackageTags>wildcard search system management automation</PackageTags>
-    <RepositoryUrl>https://github.com/rebus-org/Matcha</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-  </PropertyGroup>
+	<PropertyGroup>
+		<Authors>mookid8000</Authors>
+		<PackageLicenseUrl></PackageLicenseUrl>
+		<PackageProjectUrl>https://github.com/rebus-org/Matcha</PackageProjectUrl>
+		<Copyright>Copyright 2018-2029</Copyright>
+		<PackageTags>wildcard search system management automation</PackageTags>
+		<RepositoryUrl>https://github.com/rebus-org/Matcha</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	</PropertyGroup>
 
 </Project>

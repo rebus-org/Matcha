@@ -1,52 +1,50 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 
-namespace Matcha
+namespace Matcha;
+
+public class WildcardPattern
 {
-    public class WildcardPattern
+    readonly string _pattern;
+    readonly Regex _regex;
+
+    public WildcardPattern(string pattern, WildcardOptions options = WildcardOptions.None)
     {
-        readonly string _pattern;
-        readonly Regex _regex;
+        if (pattern == null) throw new ArgumentNullException(nameof(pattern));
+        var regexPattern = WildcardToRegex(pattern);
+        _regex = new Regex(regexPattern, GetFlags(options));
+        _pattern = pattern;
+    }
 
-        public WildcardPattern(string pattern, WildcardOptions options = WildcardOptions.None)
+    public bool IsMatch(string text) => _regex.IsMatch(text);
+
+    public override string ToString() => $"{{{_pattern}}}";
+
+    static string WildcardToRegex(string pattern)
+    {
+        var regex = Regex.Escape(pattern)
+            .Replace("\\*", ".*")
+            .Replace("\\?", ".");
+
+        return $"^{regex}$";
+    }
+
+    static RegexOptions GetFlags(WildcardOptions options)
+    {
+        var regexOptions = RegexOptions.None;
+
+        bool HasFlag(WildcardOptions flag) => (options & flag) == flag;
+
+        if (HasFlag(WildcardOptions.IgnoreCase))
         {
-            var regexPattern = WildcardToRegex(pattern);
-            _regex = new Regex(regexPattern, GetFlags(options));
-            _pattern = pattern;
+            regexOptions |= RegexOptions.IgnoreCase;
         }
 
-        public bool IsMatch(string text)
+        if (HasFlag(WildcardOptions.CultureInvariant))
         {
-            return _regex.IsMatch(text);
+            regexOptions |= RegexOptions.CultureInvariant;
         }
 
-        public override string ToString() => $"{{{_pattern}}}";
-
-        static string WildcardToRegex(string pattern)
-        {
-            var regex = Regex.Escape(pattern)
-                .Replace("\\*", ".*")
-                .Replace("\\?", ".");
-
-            return $"^{regex}$";
-        }
-
-        static RegexOptions GetFlags(WildcardOptions options)
-        {
-            var regexOptions = RegexOptions.None;
-
-            bool HasFlag(WildcardOptions flag) => (options & flag) == flag;
-
-            if (HasFlag(WildcardOptions.IgnoreCase))
-            {
-                regexOptions |= RegexOptions.IgnoreCase;
-            }
-
-            if (HasFlag(WildcardOptions.CultureInvariant))
-            {
-                regexOptions |= RegexOptions.CultureInvariant;
-            }
-
-            return regexOptions;
-        }
+        return regexOptions;
     }
 }

@@ -2,26 +2,25 @@
 using System.Linq;
 using NUnit.Framework;
 
-namespace Matcha.Tests
+namespace Matcha.Tests;
+
+[TestFixture]
+public class CodeForReadme
 {
-    [TestFixture]
-    public class CodeForReadme
+    [Test]
+    public void ItWorks()
     {
-        [Test]
-        public void ItWorks()
+        var fileNames = new[]
         {
-            var fileNames = new[]
-            {
-                "erika-eleniak.gif",
-                "cindy-crawford.jpg",
-                "ghita-nørby.GIF"
-            };
+            "erika-eleniak.gif",
+            "cindy-crawford.jpg",
+            "ghita-nørby.GIF"
+        };
 
-            var wildcardPattern = new WildcardPattern("*.gif");
+        var wildcardPattern = new WildcardPattern("*.gif");
 
-            var matches = fileNames.Where(wildcardPattern.IsMatch);
+        var matches = fileNames.Where(wildcardPattern.IsMatch);
 
-            Console.WriteLine(string.Join(Environment.NewLine, matches));
-        }
+        Console.WriteLine(string.Join(Environment.NewLine, matches));
     }
 }
